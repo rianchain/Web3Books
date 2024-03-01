@@ -4,7 +4,7 @@
 
 #h1-title {
     padding-top: 30px;
-    padding-bottom: 100px;
+    padding-bottom: 0px;
     text-align: center;
 }
 
@@ -65,10 +65,7 @@ body {
     align-items: center;
 }
 
-.card-container {
-    margin-top: -100px;
-    max-height: 80vh;
-}
+
 
 .linkgit {
     text-align: center;
@@ -76,4 +73,18 @@ body {
     align-items: center;
     display: flex;
     
+}
+
+@media (max-width: 767px) {
+    .card-container {
+        flex-direction: column; /* Ubah menjadi tata letak kolom */
+        align-items: center; /* Pusatkan card pada layar kecil */
+        padding: 0px -10px -10px 90px; /* Sesuaikan ruang padding */
+        margin-left: 20px;
+    }
+
+    .card {
+        width: 100%; /* Gunakan lebar penuh pada layar kecil */
+        margin-bottom: 20px; /* Berikan ruang antar card */
+    }
 }
