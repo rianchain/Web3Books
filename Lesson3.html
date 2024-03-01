@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3</title>
+    <style>
+
+        body {
+            padding: 20px 20px 20px 20px;
+            background-color: whitesmoke;
+        
+        }
+
+        .parag1 {
+            padding: 0px 30px 0px 30px;
+            font-family: Space, ui-sans-serif ,system-ui, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+        .h1-title {
+            text-align: center;
+        }
+
+        #subtitle {
+            padding: 30px 30px 30px 30px;
+        }
+
+        #a-back {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .code-box {
+    background-color: #000; /* Latar belakang kotak hitam */
+    color: white; /* Warna teks hijau */
+    padding: 20px; /* Padding di dalam kotak */
+    margin: 50px auto; /* Margin di atas dan bawah, serta centering */
+    width: 80%; /* Lebar kotak */
+    max-width: 800px; /* Lebar maksimum */
+    border-radius: 10px; /* Sudut kotak */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+    }
+
+    pre {
+    white-space: pre-wrap; /* Mempertahankan format kode */
+    font-family: 'Courier New', Courier, monospace; /* Font kode */
+    font-size: 16px; /* Ukuran font */
+    }
+
+
+    </style>
+</head>
+<body>
+    <main>
+
+        <h1 class="h1-title">Modul 3</h1>
+        <br><br>
+        <h3 id="subtitle">Apa Itu Solidity?</h3>
+
+
+        <ul>
+            <li>Solidity adalah bahasa tingkat tinggi yang berorientasi objek untuk mengimplementasikan smart contract. Bahasa ini dirancang untuk menargetkan Ethereum Virtual Machine (EVM).</li><br>
+            <li>Bahasa ini diketik secara statis, mendukung pewarisan, pustaka, dan tipe yang ditentukan pengguna yang kompleks di antara fitur-fitur lainnya.  </li>
+            
+        </ul><br>
+
+        <h3 id="subtitle">Contoh smart contracts di solidity:</h3>
+
+        <div class="code-box">
+            <pre>
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >= 0.7.0;
+                
+contract Coin {
+
+// Variabel publik untuk menyimpan alamat pembuat koin
+address public minter;
+
+// Mapping untuk menyimpan saldo koin per alamat
+mapping (address => uint) public balances;
+                
+// Aksi yang memungkinkan klien bereaksi pada perubahan kontrak
+event Sent(address from, address to, uint amount);
+                
+// Konstruktor yang hanya dijalankan saat kontrak dibuat
+constructor() {
+minter = msg.sender; // Menetapkan pembuat kontrak sebagai pembuat koin
+}
+                
+// Fungsi untuk menciptakan koin baru dan mengirimnya ke alamat
+function mint(address receiver, uint amount) public {
+require(msg.sender == minter, "Hanya pembuat koin yang bisa menciptakan koin baru.");
+require(amount < 1e60, "Jumlah koin terlalu besar.");
+balances[receiver] += amount;
+}
+                
+// Fungsi untuk mentransfer koin
+function send(address receiver, uint amount) public {
+require(amount <= balances[msg.sender], "Saldo tidak cukup.");
+balances[msg.sender] -= amount;
+balances[receiver] += amount;
+emit Sent(msg.sender, receiver, amount);
+    }
+}
+                
+            </pre>
+        </div>
+
+        <h3 id="subtitle">Variabel dan tipe:</h3>
+
+        <ul>
+            <li>Local</li>
+        </ul>
+
+
+        <p class="parag1">Dideklarasikan di dalam fungsi dan tidak disimpan on-chain
+        </p>
+
+        <ul>
+            <li>State</li>
+        </ul>
+
+        <p class="parag1">Dideklarasikan di luar fungsi untuk mempertahankan keadaan global dalam kontrak. dan disimpan di dalam on-chain</p>
+
+        <ul>
+            <li>Global</li>
+        </ul>
+
+        <p class="parag1">Memberikan informasi tentang rantai. Informasi ini diinjeksikan oleh EVM selama proses berjalan dan tidak dideklarasikan oleh pembuat kontrak.
+
+            Termasuk hal-hal seperti pengirim transaksi, hash blok, stempel waktu, dll.</p>
+
+        
+
+        <a id="a-back" href="index.html">Kembali ke halaman utama</a>
+
+    </main>
+    
+</body>
+</html>
